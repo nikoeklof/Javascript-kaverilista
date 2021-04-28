@@ -1,8 +1,10 @@
 let lomake = document.forms['kaverilistainput']
 let itemList = document.getElementById('kaverilista')
 let poista = document.getElementById('poista')
+let jarjestanimet = document.getElementById('jarjesta')
 poista.addEventListener('click', poistaItem)
 lomake.addEventListener('submit', uusiListaElementti)
+jarjestanimet.addEventListener('click', jarjesta)
 
 function uusiListaElementti(event) {
     event.preventDefault()
@@ -33,5 +35,26 @@ function poistaItem() {
             }
         }
     }
-    
+}
+
+function jarjesta() {
+    var lista, i, jarjestaako, b, jarjesta;
+    lista = document.getElementById('kaverilista');
+    jarjestaako = true;
+    while (jarjestaako) {
+        jarjestaako = false;
+        array = lista.getElementsByTagName('LI');
+        for (i = 0; i < (array.length - 1); i++) {
+            jarjestaako = false;
+            if (array[i].innerHTML.toLowerCase() > array[i + 1].innerHTML.toLowerCase()) {
+                jarjesta = true;
+                break;
+            }
+        }
+        if (jarjesta) {
+            array[i].parentNode.insertBefore(array[i + 1], array[i])
+            jarjestaako = true;
+        }
+    }
+
 }
