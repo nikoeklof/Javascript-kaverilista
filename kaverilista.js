@@ -6,7 +6,7 @@ lomake.addEventListener('submit', uusiListaElementti)
 
 function uusiListaElementti(event) {
     event.preventDefault()
-    let elementinnimi = document.querySelector('.container input[type="text"]').value
+    let elementinnimi = document.querySelector('#container input[type="text"]').value
     if (elementinnimi < 1) {
         alert('Anna nimi!')
         return
@@ -16,11 +16,11 @@ function uusiListaElementti(event) {
     uusiElementti.appendChild(uusiteksi)
     uusiElementti.className = 'list-item'
     document.querySelector('#kaverilista').appendChild(uusiElementti)
-    document.querySelector('.container #textinput').value = ''
+    document.querySelector('#container #textinput').value = ''
 }
 
 function poistaItem() {
-    let elementinnimi = document.querySelector('.container input[type="text"]').value
+    let elementinnimi = document.querySelector('#container input[type="text"]').value
     let lista = document.querySelectorAll('.list-item')
     if (lista.length > 0) {
         for (var i = 0; i < lista.length; i++) {
@@ -28,9 +28,10 @@ function poistaItem() {
             let verrattava = lista[i].textContent.toString()
             if (elementinnimi == verrattava) {
                 document.querySelector('#kaverilista').removeChild(lista[i])
+                document.querySelector('#container #textinput').value = ''
                 return
             }
         }
     }
-
+    
 }

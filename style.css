@@ -1,0 +1,25 @@
+body {
+    font-family: 'poppins';
+    height: 100%;
+}
+
+#container {
+    padding: 3rem;
+    justify-content: center;
+    width: 50%;
+    margin: auto;
+    display: flexbox;
+}
+#lisaanimi{
+    margin: 1rem;
+}
+
+#kaverilista {
+    margin: 1rem;
+    list-style: square;
+}
+#paaotsikko{
+    padding: 1rem;
+    background: rgba(88, 88, 88, 0.26);
+    border-radius: 5px;
+}
