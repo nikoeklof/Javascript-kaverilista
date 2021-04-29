@@ -1,60 +1,55 @@
-let lomake = document.forms['kaverilistainput']
-let itemList = document.getElementById('kaverilista')
-let poista = document.getElementById('poista')
-let jarjestanimet = document.getElementById('jarjesta')
-poista.addEventListener('click', poistaItem)
-lomake.addEventListener('submit', uusiListaElementti)
-jarjestanimet.addEventListener('click', jarjesta)
+var nimilista = []
+var lomake = document.forms['kaverilistainput']
+var textinput = document.querySelector('#textinput').value
+var lista = document.getElementById('kaverilista')
+var poista = document.getElementById('poista')
+var jarjesta = document.getElementById('jarjesta')
+lomake.addEventListener('submit', lisaaListaan)
+poista.addEventListener('click', containerRemove)
+jarjesta.addEventListener('click', containerSort)
 
-function uusiListaElementti(event) {
-    event.preventDefault()
-    let elementinnimi = document.querySelector('#container input[type="text"]').value
-    if (elementinnimi < 1) {
-        alert('Anna nimi!')
-        return
-    }
-    let uusiElementti = document.createElement('li')
-    let uusiteksi = document.createTextNode(elementinnimi)
-    uusiElementti.appendChild(uusiteksi)
-    uusiElementti.className = 'list-item'
-    document.querySelector('#kaverilista').appendChild(uusiElementti)
-    document.querySelector('#container #textinput').value = ''
+function lisaaListaan(event) {
+    textinput = document.querySelector('#textinput').value
+    event.preventDefault();
+    nimilista.push(textinput)
+    containerAdd()
 }
 
-function poistaItem() {
-    let elementinnimi = document.querySelector('#container input[type="text"]').value
-    let lista = document.querySelectorAll('.list-item')
-    if (lista.length > 0) {
-        for (var i = 0; i < lista.length; i++) {
-            console.log(i)
-            let verrattava = lista[i].textContent.toString()
-            if (elementinnimi == verrattava) {
-                document.querySelector('#kaverilista').removeChild(lista[i])
-                document.querySelector('#container #textinput').value = ''
-                return
-            }
+function containerAdd() {
+    textinput = document.querySelector('#textinput').value
+    let uusiItem = document.createElement('LI')
+    let itemContent = document.createTextNode(textinput)
+    uusiItem.appendChild(itemContent)
+    lista.appendChild(uusiItem)
+}
+
+function containerRemove() {
+    textinput = document.querySelector('#textinput').value
+    if (nimilista.length < 1) {
+        alert('Lista tyhjä! ei voi poistaa')
+    }
+    if (nimilista.length < lista.childNodes.length) {
+        lista.removeChild(lista.childNodes[0])
+    }
+    for (var i = 0; i < nimilista.length; i++) {
+        if (textinput == nimilista[i]) {
+            lista.removeChild(lista.childNodes[i])
+            nimilista.splice(i, 1)
+            return
         }
     }
 }
 
-function jarjesta() {
-    var lista, i, jarjestaako, b, jarjesta;
-    lista = document.getElementById('kaverilista');
-    jarjestaako = true;
-    while (jarjestaako) {
-        jarjestaako = false;
-        array = lista.getElementsByTagName('LI');
-        for (i = 0; i < (array.length - 1); i++) {
-            jarjestaako = false;
-            if (array[i].innerHTML.toLowerCase() > array[i + 1].innerHTML.toLowerCase()) {
-                jarjesta = true;
-                break;
-            }
-        }
-        if (jarjesta) {
-            array[i].parentNode.insertBefore(array[i + 1], array[i])
-            jarjestaako = true;
-        }
+function containerSort() {
+    if (nimilista.length < 1) {
+        alert('Lista tyhjä!')
+    }
+    if (nimilista.length < lista.childNodes.length) {
+        lista.removeChild(lista.childNodes[0])
+    }
+    nimilista.sort();
+    for (i = 0; i < nimilista.length; i++) {
+        lista.childNodes[i].textContent = nimilista[i]
     }
 
 }
